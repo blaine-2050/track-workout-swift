@@ -1,0 +1,30 @@
+# Xcode
+build/
+DerivedData/
+*.xcworkspace
+!default.xcworkspace
+xcuserdata/
+*.xcuserstate
+*.moved-aside
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Swift Package Manager
+.swiftpm/
+.build/
+Packages/
+Package.pins
+Package.resolved
+
+# CocoaPods (if ever added)
+Pods/
+
+# OS
+.DS_Store
+
+# Scratch
+scratch.md
+.tmp-home/
+.cache/

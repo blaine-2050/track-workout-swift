@@ -1,0 +1,445 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A1000001233AAAAA00000001 /* TrackWorkoutApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000002233AAAAA00000001 /* TrackWorkoutApp.swift */; };
+		A1000003233AAAAA00000001 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000004233AAAAA00000001 /* ContentView.swift */; };
+		A1000005233AAAAA00000001 /* TrackWorkout.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A1000006233AAAAA00000001 /* TrackWorkout.xcdatamodeld */; };
+		A1000007233AAAAA00000001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1000008233AAAAA00000001 /* Assets.xcassets */; };
+		A1000009233AAAAA00000001 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100000A233AAAAA00000001 /* PersistenceController.swift */; };
+		A100000B233AAAAA00000001 /* WorkoutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100000C233AAAAA00000001 /* WorkoutViewModel.swift */; };
+		A100000D233AAAAA00000001 /* NumericKeypad.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100000E233AAAAA00000001 /* NumericKeypad.swift */; };
+		A100000F233AAAAA00000001 /* MoveSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000010233AAAAA00000001 /* MoveSelector.swift */; };
+		A1000011233AAAAA00000001 /* WeightEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000012233AAAAA00000001 /* WeightEntry.swift */; };
+		A1000013233AAAAA00000001 /* RepsEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000014233AAAAA00000001 /* RepsEntry.swift */; };
+		A1000015233AAAAA00000001 /* EventHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000016233AAAAA00000001 /* EventHistory.swift */; };
+		A100002F233AAAAA00000001 /* WorkoutStatusBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000030233AAAAA00000001 /* WorkoutStatusBar.swift */; };
+		A1000031233AAAAA00000001 /* TrackWorkoutCore in Frameworks */ = {isa = PBXBuildFile; productRef = A1000033233AAAAA00000001 /* TrackWorkoutCore */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		A1000002233AAAAA00000001 /* TrackWorkoutApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackWorkoutApp.swift; sourceTree = "<group>"; };
+		A1000004233AAAAA00000001 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		A1000006233AAAAA00000001 /* TrackWorkout.xcdatamodeld */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodeld; path = TrackWorkout.xcdatamodeld; sourceTree = "<group>"; };
+		A1000008233AAAAA00000001 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A100000A233AAAAA00000001 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
+		A100000C233AAAAA00000001 /* WorkoutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutViewModel.swift; sourceTree = "<group>"; };
+		A100000E233AAAAA00000001 /* NumericKeypad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumericKeypad.swift; sourceTree = "<group>"; };
+		A1000010233AAAAA00000001 /* MoveSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveSelector.swift; sourceTree = "<group>"; };
+		A1000012233AAAAA00000001 /* WeightEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightEntry.swift; sourceTree = "<group>"; };
+		A1000014233AAAAA00000001 /* RepsEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepsEntry.swift; sourceTree = "<group>"; };
+		A1000016233AAAAA00000001 /* EventHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHistory.swift; sourceTree = "<group>"; };
+		A1000017233AAAAA00000001 /* TrackWorkout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrackWorkout.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A1000030233AAAAA00000001 /* WorkoutStatusBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutStatusBar.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A1000018233AAAAA00000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1000031233AAAAA00000001 /* TrackWorkoutCore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A1000019233AAAAA00000001 = {
+			isa = PBXGroup;
+			children = (
+				A100001A233AAAAA00000001 /* TrackWorkout */,
+				A100001B233AAAAA00000001 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A100001A233AAAAA00000001 /* TrackWorkout */ = {
+			isa = PBXGroup;
+			children = (
+				A1000002233AAAAA00000001 /* TrackWorkoutApp.swift */,
+				A1000004233AAAAA00000001 /* ContentView.swift */,
+				A100001C233AAAAA00000001 /* Models */,
+				A100001D233AAAAA00000001 /* Views */,
+				A100001E233AAAAA00000001 /* ViewModels */,
+				A100001F233AAAAA00000001 /* Persistence */,
+				A1000008233AAAAA00000001 /* Assets.xcassets */,
+			);
+			path = TrackWorkout;
+			sourceTree = "<group>";
+		};
+		A100001B233AAAAA00000001 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A1000017233AAAAA00000001 /* TrackWorkout.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A100001C233AAAAA00000001 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A1000006233AAAAA00000001 /* TrackWorkout.xcdatamodeld */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		A100001D233AAAAA00000001 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A100000E233AAAAA00000001 /* NumericKeypad.swift */,
+				A1000010233AAAAA00000001 /* MoveSelector.swift */,
+				A1000012233AAAAA00000001 /* WeightEntry.swift */,
+				A1000014233AAAAA00000001 /* RepsEntry.swift */,
+				A1000016233AAAAA00000001 /* EventHistory.swift */,
+				A1000030233AAAAA00000001 /* WorkoutStatusBar.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		A100001E233AAAAA00000001 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				A100000C233AAAAA00000001 /* WorkoutViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		A100001F233AAAAA00000001 /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				A100000A233AAAAA00000001 /* PersistenceController.swift */,
+			);
+			path = Persistence;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A1000020233AAAAA00000001 /* TrackWorkout */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A1000021233AAAAA00000001 /* Build configuration list for PBXNativeTarget "TrackWorkout" */;
+			buildPhases = (
+				A1000022233AAAAA00000001 /* Sources */,
+				A1000018233AAAAA00000001 /* Frameworks */,
+				A1000023233AAAAA00000001 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TrackWorkout;
+			packageProductDependencies = (
+				A1000033233AAAAA00000001 /* TrackWorkoutCore */,
+			);
+			productName = TrackWorkout;
+			productReference = A1000017233AAAAA00000001 /* TrackWorkout.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A1000024233AAAAA00000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					A1000020233AAAAA00000001 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = A1000025233AAAAA00000001 /* Build configuration list for PBXProject "TrackWorkout" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A1000019233AAAAA00000001;
+			packageReferences = (
+				A1000032233AAAAA00000001 /* XCLocalSwiftPackageReference "../../apple-shared/TrackWorkoutCore" */,
+			);
+			productRefGroup = A100001B233AAAAA00000001 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A1000020233AAAAA00000001 /* TrackWorkout */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A1000023233AAAAA00000001 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1000007233AAAAA00000001 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A1000022233AAAAA00000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1000001233AAAAA00000001 /* TrackWorkoutApp.swift in Sources */,
+				A1000003233AAAAA00000001 /* ContentView.swift in Sources */,
+				A1000005233AAAAA00000001 /* TrackWorkout.xcdatamodeld in Sources */,
+				A1000009233AAAAA00000001 /* PersistenceController.swift in Sources */,
+				A100000B233AAAAA00000001 /* WorkoutViewModel.swift in Sources */,
+				A100000D233AAAAA00000001 /* NumericKeypad.swift in Sources */,
+				A100000F233AAAAA00000001 /* MoveSelector.swift in Sources */,
+				A1000011233AAAAA00000001 /* WeightEntry.swift in Sources */,
+				A1000013233AAAAA00000001 /* RepsEntry.swift in Sources */,
+				A1000015233AAAAA00000001 /* EventHistory.swift in Sources */,
+				A100002F233AAAAA00000001 /* WorkoutStatusBar.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		A1000026233AAAAA00000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		A1000027233AAAAA00000001 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A1000028233AAAAA00000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.athenia.TrackWorkout;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A1000029233AAAAA00000001 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.athenia.TrackWorkout;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A1000021233AAAAA00000001 /* Build configuration list for PBXNativeTarget "TrackWorkout" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A1000028233AAAAA00000001 /* Debug */,
+				A1000029233AAAAA00000001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A1000025233AAAAA00000001 /* Build configuration list for PBXProject "TrackWorkout" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A1000026233AAAAA00000001 /* Debug */,
+				A1000027233AAAAA00000001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		A1000032233AAAAA00000001 /* XCLocalSwiftPackageReference "../../apple-shared/TrackWorkoutCore" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../apple-shared/TrackWorkoutCore;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A1000033233AAAAA00000001 /* TrackWorkoutCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A1000032233AAAAA00000001 /* XCLocalSwiftPackageReference "../../apple-shared/TrackWorkoutCore" */;
+			productName = TrackWorkoutCore;
+		};
+/* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		A1000006233AAAAA00000001 /* TrackWorkout.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				A100002A233AAAAA00000001 /* TrackWorkout.xcdatamodel */,
+			);
+			currentVersion = A100002A233AAAAA00000001 /* TrackWorkout.xcdatamodel */;
+			path = TrackWorkout.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+		A100002A233AAAAA00000001 /* TrackWorkout.xcdatamodel */ = {
+			isa = PBXFileReference;
+			lastKnownFileType = wrapper.xcdatamodel;
+			path = TrackWorkout.xcdatamodel;
+			sourceTree = "<group>";
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = A1000024233AAAAA00000001 /* Project object */;
+}
