@@ -122,7 +122,10 @@ class WorkoutViewModel: ObservableObject {
     @Published var intervalMinutes: String = ""
     @Published var intervalSeconds: String = ""
     @Published var intervalField: IntervalField = .hours
-    @Published var isSticky: Bool = false
+    // Sticky-replace state is per-field: typing the first digit in one
+    // field must not consume the sticky replacement on the other.
+    @Published var isWeightSticky: Bool = false
+    @Published var isRepsSticky: Bool = false
     @Published var moveSelectedAt: Date?
     @Published var lastLoggedAt: Date?
     @Published var pendingSyncCount: Int = 0
@@ -195,19 +198,20 @@ class WorkoutViewModel: ObservableObject {
             appendIntervalDigit(digit)
             return
         }
-        if isSticky {
-            switch activeField {
-            case .weight: weight = ""
-            case .reps: reps = ""
-            }
-            isSticky = false
-        }
         switch activeField {
         case .weight:
+            if isWeightSticky {
+                weight = ""
+                isWeightSticky = false
+            }
             if weight.count < 6 {
                 weight += digit
             }
         case .reps:
+            if isRepsSticky {
+                reps = ""
+                isRepsSticky = false
+            }
             if reps.count < 3 {
                 reps += digit
             }
@@ -217,9 +221,9 @@ class WorkoutViewModel: ObservableObject {
     func appendDecimal() {
         if isIntervalMove { return }
         guard activeField == .weight else { return }
-        if isSticky {
+        if isWeightSticky {
             weight = "0."
-            isSticky = false
+            isWeightSticky = false
             return
         }
         guard !weight.contains(".") else { return }
@@ -235,20 +239,22 @@ class WorkoutViewModel: ObservableObject {
             backspaceInterval()
             return
         }
-        if isSticky {
-            switch activeField {
-            case .weight: weight = ""
-            case .reps: reps = ""
-            }
-            isSticky = false
-            return
-        }
         switch activeField {
         case .weight:
+            if isWeightSticky {
+                weight = ""
+                isWeightSticky = false
+                return
+            }
             if !weight.isEmpty {
                 weight.removeLast()
             }
         case .reps:
+            if isRepsSticky {
+                reps = ""
+                isRepsSticky = false
+                return
+            }
             if !reps.isEmpty {
                 reps.removeLast()
             }
@@ -260,18 +266,20 @@ class WorkoutViewModel: ObservableObject {
             clearIntervalField()
             return
         }
-        isSticky = false
         switch activeField {
         case .weight:
+            isWeightSticky = false
             weight = ""
         case .reps:
+            isRepsSticky = false
             reps = ""
         }
     }
 
     func resetAfterLog() {
-        // Keep weight and reps visible (sticky) — both replaced on first keypress
-        isSticky = true
+        // Keep weight and reps visible (sticky) — each replaced independently on first keypress
+        isWeightSticky = true
+        isRepsSticky = true
         activeField = .weight
         intervalHours = ""
         intervalMinutes = ""
@@ -284,7 +292,8 @@ class WorkoutViewModel: ObservableObject {
     func resetForMoveChange() {
         weight = ""
         reps = ""
-        isSticky = false
+        isWeightSticky = false
+        isRepsSticky = false
         activeField = .weight
         intervalHours = ""
         intervalMinutes = ""

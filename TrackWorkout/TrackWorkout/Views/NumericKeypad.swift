@@ -21,6 +21,7 @@ struct NumericKeypad: View {
                 KeypadButton(label: "\(digit)") {
                     onDigit("\(digit)")
                 }
+                .accessibilityIdentifier("keypad-\(digit)")
             }
 
             // Bottom row
@@ -28,23 +29,28 @@ struct NumericKeypad: View {
                 KeypadButton(label: ":") {
                     onColon()
                 }
+                .accessibilityIdentifier("keypad-colon")
             } else if showDecimal {
                 KeypadButton(label: ".") {
                     onDecimal()
                 }
+                .accessibilityIdentifier("keypad-decimal")
             } else {
                 KeypadButton(label: "C", style: .secondary) {
                     onClear()
                 }
+                .accessibilityIdentifier("keypad-clear")
             }
 
             KeypadButton(label: "0") {
                 onDigit("0")
             }
+            .accessibilityIdentifier("keypad-0")
 
             KeypadButton(label: "delete.left.fill", isSystemImage: true, style: .secondary) {
                 onBackspace()
             }
+            .accessibilityIdentifier("keypad-backspace")
         }
     }
 }

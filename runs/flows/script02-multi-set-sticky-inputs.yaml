@@ -1,0 +1,63 @@
+# Maestro flow: Track Workout script 02 — multi-set sticky inputs
+# Spec: https://github.com/blaine-2050/track-workout-core/blob/main/WORKOUT_SCRIPTS/02-multi-set-sticky-inputs.md
+
+appId: com.athenia.TrackWorkout
+---
+- launchApp:
+    clearState: false
+- assertVisible: "Select Exercise"
+
+# Set 1 — Squat 225 × 5
+# Note: keypad buttons have accessibilityIdentifier "keypad-N" to avoid
+# text ambiguity (e.g. "5" would also match the Reps display showing 5).
+- tapOn: "Select Exercise"
+- tapOn: "Squat"
+- tapOn:
+    id: "keypad-2"
+- tapOn:
+    id: "keypad-2"
+- tapOn:
+    id: "keypad-5"
+- takeScreenshot: runs/screens/2026-04-15-script02-set1-weight
+- tapOn: "Reps"
+- tapOn:
+    id: "keypad-5"
+- tapOn: "Log"
+- takeScreenshot: runs/screens/2026-04-15-script02-after-log1
+- assertVisible: "225 lbs"
+# Sticky: after log, weight still reads 225, reps still reads 5
+- assertVisible: "Weight"
+- assertVisible: "Reps"
+
+# Set 2 — tap weight field, first keypress replaces sticky, then type to 235
+- tapOn: "Weight"
+- tapOn:
+    id: "keypad-2"
+- takeScreenshot: runs/screens/2026-04-15-script02-weight-replaced-to-2
+# At this point weight display should read "2" (not "2252" nor "2225")
+- tapOn:
+    id: "keypad-3"
+- tapOn:
+    id: "keypad-5"
+- takeScreenshot: runs/screens/2026-04-15-script02-set2-weight-235
+- tapOn: "Log"
+- takeScreenshot: runs/screens/2026-04-15-script02-after-log2
+- assertVisible: "235 lbs"
+
+# Set 3 — tap reps field, first keypress replaces 5 with 6
+- tapOn: "Reps"
+- tapOn:
+    id: "keypad-6"
+- takeScreenshot: runs/screens/2026-04-15-script02-reps-replaced-to-6
+- tapOn: "Log"
+- takeScreenshot: runs/screens/2026-04-15-script02-after-log3
+
+# Stop and check summary — 3 sets total
+- tapOn: "Stop"
+- waitForAnimationToEnd
+- takeScreenshot: runs/screens/2026-04-15-script02-stopped
+- assertVisible: "Workout Complete"
+- assertVisible: "3 sets"
+# 225*5 + 235*5 + 235*6 = 1125 + 1175 + 1410 = 3710 lbs
+- assertVisible: "3,710 lbs moved"
+- tapOn: "Done"

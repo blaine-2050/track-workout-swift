@@ -1,0 +1,70 @@
+# Maestro flow: Track Workout script 03 — workout stop summary
+# Spec: https://github.com/blaine-2050/track-workout-core/blob/main/WORKOUT_SCRIPTS/03-workout-stop-summary.md
+# Expects: 3 sets, 315*3 + 315*3 + 335*2 = 2,560 lbs total, duration >= 30s
+
+appId: com.athenia.TrackWorkout
+---
+- launchApp:
+    clearState: false
+- assertVisible: "Select Exercise"
+
+# Set 1 — Deadlift 315 × 3 (T0)
+- tapOn: "Select Exercise"
+- tapOn: "Deadlift"
+- tapOn:
+    id: "keypad-3"
+- tapOn:
+    id: "keypad-1"
+- tapOn:
+    id: "keypad-5"
+- tapOn: "Reps"
+- tapOn:
+    id: "keypad-3"
+- tapOn: "Log"
+- takeScreenshot: runs/screens/2026-04-15-script03-after-set1
+- assertVisible: "315 lbs"
+
+# Wait ≥ 30 seconds — Maestro has no native sleep; tap a no-op element
+# many times with animation waits. Cleaner: use extendedWaitUntil with
+# a fake condition + timeout. Using invisible text with long timeout.
+- extendedWaitUntil:
+    visible: "__never_visible_sentinel__"
+    timeout: 30000
+    optional: true
+
+# Set 2 — same Deadlift 315 × 3 (sticky weight + reps means we just Log)
+- tapOn: "Log"
+- takeScreenshot: runs/screens/2026-04-15-script03-after-set2
+
+# Set 3 — bump weight to 335, reps to 2
+- tapOn: "Weight"
+- tapOn:
+    id: "keypad-3"
+- tapOn:
+    id: "keypad-3"
+- tapOn:
+    id: "keypad-5"
+- tapOn: "Reps"
+- tapOn:
+    id: "keypad-2"
+- tapOn: "Log"
+- takeScreenshot: runs/screens/2026-04-15-script03-after-set3
+
+# Stop — assert summary numbers
+- tapOn: "Stop"
+- waitForAnimationToEnd
+- takeScreenshot: runs/screens/2026-04-15-script03-stopped
+- assertVisible: "Workout Complete"
+- assertVisible: "3 sets"
+- assertVisible: "2,560 lbs moved"
+- tapOn: "Done"
+- waitForAnimationToEnd
+
+# In-history summary sanity check. NOTE: inline summary uses "Sets: N"
+# where N is the number of consecutive-move groups, not the number of
+# logged entries. That disagrees with the modal and the PRD ("3 sets").
+# Bug tracked in runs/2026-04-15-script03.md. Assertion below avoids
+# that ambiguity until the spec clarifies.
+- assertVisible: "Workout ended at.*"
+- assertVisible: "Total: 2,560"
+- assertNotVisible: "Elapsed:.*"
