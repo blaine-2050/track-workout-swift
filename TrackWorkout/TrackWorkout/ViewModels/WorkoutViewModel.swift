@@ -130,6 +130,10 @@ class WorkoutViewModel: ObservableObject {
     @Published var lastLoggedAt: Date?
     /// Non-nil while a tap-start/tap-stop cardio segment is in progress.
     @Published var cardioSegmentStart: Date?
+    /// Free-text note attached to the next entry the user logs.
+    /// Cleared in resetAfterLog so the same note isn't accidentally
+    /// re-attached to the next set.
+    @Published var pendingNote: String = ""
     @Published var pendingSyncCount: Int = 0
     @Published var syncStatusMessage: String = "Sync queue empty"
 
@@ -296,6 +300,7 @@ class WorkoutViewModel: ObservableObject {
         intervalSeconds = ""
         intervalField = .hours
         cardioSegmentStart = nil
+        pendingNote = ""
         lastLoggedAt = Date()
         moveSelectedAt = Date()
     }
@@ -311,6 +316,7 @@ class WorkoutViewModel: ObservableObject {
         intervalSeconds = ""
         intervalField = .hours
         cardioSegmentStart = nil
+        pendingNote = ""
         moveSelectedAt = Date()
     }
 

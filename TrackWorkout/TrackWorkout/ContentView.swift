@@ -16,6 +16,7 @@ struct ContentView: View {
     /// True when the user has expanded the "Enter duration manually" disclosure
     /// inside cardio mode — falls back to the legacy HH:MM:SS keypad path.
     @State private var cardioManualEntry: Bool = false
+    @State private var showNoteSheet: Bool = false
     private let exportTimestampFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "en_US_POSIX")
@@ -200,6 +201,27 @@ struct ContentView: View {
                     .padding(.horizontal)
                 }
 
+                // Note affordance — second-tier, never blocks Log.
+                // Visible whenever a workout is in progress so the user can
+                // attach a quick note to the next entry they log.
+                if viewModel.isWorkoutInProgress {
+                    HStack {
+                        Spacer()
+                        Button(action: { showNoteSheet = true }) {
+                            HStack(spacing: 4) {
+                                Image(systemName: viewModel.pendingNote.isEmpty ? "note.text" : "note.text.badge.plus")
+                                    .font(.caption)
+                                Text(viewModel.pendingNote.isEmpty ? "Add note" : "Note pending")
+                                    .font(.caption)
+                            }
+                            .foregroundColor(.secondary)
+                        }
+                        .accessibilityIdentifier("add-note-button")
+                        Spacer()
+                    }
+                    .padding(.top, 4)
+                }
+
                 Divider()
                     .padding(.vertical, 1)
 
@@ -233,6 +255,9 @@ struct ContentView: View {
             }
             .sheet(isPresented: $showSettings) {
                 SettingsSheet()
+            }
+            .sheet(isPresented: $showNoteSheet) {
+                NoteSheet(note: $viewModel.pendingNote, title: "Note for next entry")
             }
             .onAppear {
                 viewModel.refreshPendingSyncCount()
@@ -298,6 +323,10 @@ struct ContentView: View {
         entry.durationSeconds = Double(durationSeconds)
         entry.weight = 0
         entry.reps = 0
+        let trimmedNote = viewModel.pendingNote.trimmingCharacters(in: .whitespacesAndNewlines)
+        if !trimmedNote.isEmpty {
+            entry.notes = trimmedNote
+        }
 
         stampEndedAtOnPreviousEntry(now: now)
 
@@ -339,6 +368,12 @@ struct ContentView: View {
                 newEntry.weight = weight
                 newEntry.reps = reps
                 newEntry.weightUnit = weightUnit
+            }
+
+            // Attach pending note if any. Trim and skip empty.
+            let trimmedNote = viewModel.pendingNote.trimmingCharacters(in: .whitespacesAndNewlines)
+            if !trimmedNote.isEmpty {
+                newEntry.notes = trimmedNote
             }
 
             // Stamp endedAt on the previous entry if it doesn't have one

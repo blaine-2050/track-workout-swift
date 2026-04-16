@@ -21,6 +21,7 @@
 		A1000040233AAAAA00000001 /* SettingsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000041233AAAAA00000001 /* SettingsSheet.swift */; };
 		A1000042233AAAAA00000001 /* AddMoveSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000043233AAAAA00000001 /* AddMoveSheet.swift */; };
 		A1000044233AAAAA00000001 /* CardioEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000045233AAAAA00000001 /* CardioEntry.swift */; };
+		A1000046233AAAAA00000001 /* NoteSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000047233AAAAA00000001 /* NoteSheet.swift */; };
 		A100002F233AAAAA00000001 /* WorkoutStatusBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000030233AAAAA00000001 /* WorkoutStatusBar.swift */; };
 		A1000031233AAAAA00000001 /* TrackWorkoutCore in Frameworks */ = {isa = PBXBuildFile; productRef = A1000033233AAAAA00000001 /* TrackWorkoutCore */; };
 /* End PBXBuildFile section */
@@ -40,6 +41,7 @@
 		A1000041233AAAAA00000001 /* SettingsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSheet.swift; sourceTree = "<group>"; };
 		A1000043233AAAAA00000001 /* AddMoveSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMoveSheet.swift; sourceTree = "<group>"; };
 		A1000045233AAAAA00000001 /* CardioEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardioEntry.swift; sourceTree = "<group>"; };
+		A1000047233AAAAA00000001 /* NoteSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteSheet.swift; sourceTree = "<group>"; };
 		A1000017233AAAAA00000001 /* TrackWorkout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrackWorkout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1000030233AAAAA00000001 /* WorkoutStatusBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutStatusBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -106,6 +108,7 @@
 				A1000041233AAAAA00000001 /* SettingsSheet.swift */,
 				A1000043233AAAAA00000001 /* AddMoveSheet.swift */,
 				A1000045233AAAAA00000001 /* CardioEntry.swift */,
+				A1000047233AAAAA00000001 /* NoteSheet.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -214,6 +217,7 @@
 				A1000040233AAAAA00000001 /* SettingsSheet.swift in Sources */,
 				A1000042233AAAAA00000001 /* AddMoveSheet.swift in Sources */,
 				A1000044233AAAAA00000001 /* CardioEntry.swift in Sources */,
+				A1000046233AAAAA00000001 /* NoteSheet.swift in Sources */,
 				A100002F233AAAAA00000001 /* WorkoutStatusBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

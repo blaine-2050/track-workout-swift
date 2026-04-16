@@ -1,0 +1,60 @@
+# Maestro flow: attach a note to a strength entry; verify it persists
+# and renders inline in history.
+
+appId: com.athenia.TrackWorkout
+---
+- launchApp:
+    clearState: false
+- assertVisible: "Select Exercise"
+
+# Select Bench Press, set weight 135, reps 10
+- tapOn: "Select Exercise"
+- waitForAnimationToEnd
+- tapOn: "Bench Press"
+- waitForAnimationToEnd
+- tapOn:
+    id: "keypad-1"
+- tapOn:
+    id: "keypad-3"
+- tapOn:
+    id: "keypad-5"
+- tapOn: "Reps"
+- tapOn:
+    id: "keypad-1"
+- tapOn:
+    id: "keypad-0"
+
+# Open the note sheet, type a note, save
+- tapOn:
+    id: "add-note-button"
+- waitForAnimationToEnd
+- takeScreenshot: runs/screens/2026-04-15-note-sheet
+- assertVisible: "Note for next entry"
+- tapOn:
+    id: "note-textfield"
+- inputText: "felt heavy today"
+- tapOn:
+    id: "note-save"
+- waitForAnimationToEnd
+
+# Pending-note hint should reflect the queued note
+- assertVisible: "Note pending"
+
+# Log the entry — note should be attached
+- tapOn: "Log"
+- waitForAnimationToEnd
+- takeScreenshot: runs/screens/2026-04-15-note-after-log
+- assertVisible: "felt heavy today"
+
+# After log, pending note is cleared
+- assertVisible: "Add note"
+- assertNotVisible: "Note pending"
+
+- tapOn: "Stop"
+- waitForAnimationToEnd
+- takeScreenshot: runs/screens/2026-04-15-note-stopped
+- tapOn: "Done"
+- waitForAnimationToEnd
+
+# Note still visible inline in history after dismiss
+- assertVisible: "felt heavy today"

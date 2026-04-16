@@ -311,35 +311,44 @@ private struct EntryRow: View {
     }
 
     var body: some View {
-        HStack {
-            if entry.durationSeconds > 0 {
-                Text("Duration \(formattedDuration)")
-                    .font(.subheadline)
-                    .fontWeight(.semibold)
-            } else {
-                HStack(spacing: 12) {
-                    Text("\(entry.weight, specifier: "%.0f") \(unitLabel)")
-                        .font(.subheadline)
-                        .frame(minWidth: 56, alignment: .trailing)
-                    Text("×")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                    Text("\(entry.reps)")
-                        .font(.subheadline)
-                        .frame(width: 24, alignment: .trailing)
-                    Text("=")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                    Text("\(totalWeight, specifier: "%.0f") \(unitLabel)")
+        VStack(alignment: .leading, spacing: 2) {
+            HStack {
+                if entry.durationSeconds > 0 {
+                    Text("Duration \(formattedDuration)")
                         .font(.subheadline)
                         .fontWeight(.semibold)
-                        .frame(minWidth: 64, alignment: .trailing)
+                } else {
+                    HStack(spacing: 12) {
+                        Text("\(entry.weight, specifier: "%.0f") \(unitLabel)")
+                            .font(.subheadline)
+                            .frame(minWidth: 56, alignment: .trailing)
+                        Text("×")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                        Text("\(entry.reps)")
+                            .font(.subheadline)
+                            .frame(width: 24, alignment: .trailing)
+                        Text("=")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                        Text("\(totalWeight, specifier: "%.0f") \(unitLabel)")
+                            .font(.subheadline)
+                            .fontWeight(.semibold)
+                            .frame(minWidth: 64, alignment: .trailing)
+                    }
                 }
+                Spacer()
+                Text(formatElapsed(start: entry.startedAt ?? entry.timestamp, end: entry.endedAt ?? Date()))
+                    .font(.subheadline)
+                    .monospacedDigit()
             }
-            Spacer()
-            Text(formatElapsed(start: entry.startedAt ?? entry.timestamp, end: entry.endedAt ?? Date()))
-                .font(.subheadline)
-                .monospacedDigit()
+            if let notes = entry.notes, !notes.isEmpty {
+                Text(notes)
+                    .font(.caption)
+                    .italic()
+                    .foregroundColor(.secondary)
+                    .padding(.leading, 4)
+            }
         }
         .padding(.vertical, 2)
         .background(Color(.systemBackground))
