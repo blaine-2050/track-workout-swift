@@ -1,0 +1,34 @@
+# Maestro flow: open settings sheet, toggle sync on, verify endpoint/key
+# fields appear, dismiss.
+
+appId: com.athenia.TrackWorkout
+---
+- launchApp:
+    clearState: false
+- assertVisible: "Select Exercise"
+
+# Open settings via gear icon
+- tapOn:
+    id: "open-settings"
+- waitForAnimationToEnd
+- takeScreenshot: runs/screens/2026-04-15-settings-default
+- assertVisible: "Settings"
+- assertVisible: "Sync to remote server"
+
+# Toggle sync on. SwiftUI Toggle in a Form row needs the tap on the
+# trailing UISwitch hit-target; row bounds are [16,152][374,204] so
+# the switch sits around (92%, 21%) on iPhone 12 (390x844).
+- tapOn:
+    point: "92%, 21%"
+- waitForAnimationToEnd
+- takeScreenshot: runs/screens/2026-04-15-settings-sync-on
+- assertVisible: "Endpoint"
+- assertVisible: "API key"
+- assertVisible: "Test connection"
+
+# Dismiss
+- tapOn:
+    id: "settings-done"
+- waitForAnimationToEnd
+- takeScreenshot: runs/screens/2026-04-15-settings-dismissed
+- assertVisible: "Select Exercise"

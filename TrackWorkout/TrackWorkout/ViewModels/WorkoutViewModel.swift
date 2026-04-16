@@ -313,7 +313,17 @@ class WorkoutViewModel: ObservableObject {
         }
     }
 
+    /// True when the user has flipped the SettingsKey.syncEnabled toggle.
+    /// When false, no events are queued or POSTed. The app is fully offline.
+    private var isSyncEnabled: Bool {
+        UserDefaults.standard.bool(forKey: "sync.enabled")
+    }
+
     func enqueueForSync(logEntry: LogEntry, moveName: String) {
+        guard isSyncEnabled else {
+            syncStatusMessage = ""
+            return
+        }
         guard let entryId = logEntry.id,
               let moveId = logEntry.moveId,
               let startedAt = logEntry.startedAt ?? logEntry.timestamp else {
@@ -349,6 +359,10 @@ class WorkoutViewModel: ObservableObject {
     }
 
     func syncNow() async {
+        guard isSyncEnabled else {
+            syncStatusMessage = ""
+            return
+        }
         guard !outbox.items.isEmpty else {
             syncStatusMessage = "Sync queue empty"
             return

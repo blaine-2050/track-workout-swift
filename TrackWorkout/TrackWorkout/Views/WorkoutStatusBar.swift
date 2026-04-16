@@ -7,6 +7,7 @@ struct WorkoutStatusBar: View {
     let onCopy: () -> Void
     let onExport: () -> Void
     let onRemoteDB: () -> Void
+    let onSettings: () -> Void
 
     var body: some View {
         HStack {
@@ -23,6 +24,19 @@ struct WorkoutStatusBar: View {
                 }
 
                 exportMenu
+
+                Button(action: onSettings) {
+                    Image(systemName: "gearshape")
+                        .font(.headline)
+                        .foregroundColor(.secondary)
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 5)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(Color.secondary.opacity(0.4), lineWidth: 1)
+                        )
+                }
+                .accessibilityIdentifier("open-settings")
             }
         }
         .padding(.horizontal)
@@ -83,7 +97,8 @@ struct WorkoutStatusBar: View {
         onStopWorkout: {},
         onCopy: {},
         onExport: {},
-        onRemoteDB: {}
+        onRemoteDB: {},
+        onSettings: {}
     )
 }
 
@@ -94,6 +109,7 @@ struct WorkoutStatusBar: View {
         onStopWorkout: {},
         onCopy: {},
         onExport: {},
-        onRemoteDB: {}
+        onRemoteDB: {},
+        onSettings: {}
     )
 }

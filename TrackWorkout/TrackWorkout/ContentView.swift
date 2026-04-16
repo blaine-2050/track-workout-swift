@@ -11,6 +11,7 @@ struct ContentView: View {
     @State private var showAddMoveAlert = false
     @State private var csvContent: String = ""
     @State private var completedSummary: WorkoutSummaryData?
+    @State private var showSettings: Bool = false
     private let exportTimestampFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "en_US_POSIX")
@@ -55,7 +56,8 @@ struct ContentView: View {
                     onStopWorkout: stopWorkout,
                     onCopy: copyCSV,
                     onExport: exportCSV,
-                    onRemoteDB: { showRemoteDBAlert = true }
+                    onRemoteDB: { showRemoteDBAlert = true },
+                    onSettings: { showSettings = true }
                 )
 
                 if !viewModel.syncStatusMessage.isEmpty && viewModel.syncStatusMessage != "Sync queue empty" {
@@ -203,6 +205,9 @@ struct ContentView: View {
                 WorkoutCompletedSheet(summary: summary) {
                     completedSummary = nil
                 }
+            }
+            .sheet(isPresented: $showSettings) {
+                SettingsSheet()
             }
             .onAppear {
                 viewModel.refreshPendingSyncCount()
