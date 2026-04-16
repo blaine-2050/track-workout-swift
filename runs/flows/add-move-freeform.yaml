@@ -1,0 +1,36 @@
+# Maestro flow: add a custom (free-form) cardio move and log against it.
+# Exercises Milestone 3 from the spec v2 plan.
+
+appId: com.athenia.TrackWorkout
+---
+- launchApp:
+    clearState: false
+- assertVisible: "Select Exercise"
+
+# Open Add Move sheet
+- tapOn:
+    id: "add-move-button"
+- waitForAnimationToEnd
+- takeScreenshot: runs/screens/2026-04-15-add-move-sheet
+- assertVisible: "Add Move"
+- assertVisible: "Strength"
+- assertVisible: "Cardio"
+- assertVisible: "Other"
+
+# Type a name and pick Cardio
+- tapOn:
+    id: "add-move-name"
+- inputText: "Bike commute"
+# Cardio is the middle segment (~50% width); the picker row is just under name field
+- tapOn: "Cardio"
+- waitForAnimationToEnd
+- takeScreenshot: runs/screens/2026-04-15-add-move-cardio-selected
+
+# Save — sheet dismisses, new move auto-selected
+- tapOn:
+    id: "add-move-save"
+- waitForAnimationToEnd
+- takeScreenshot: runs/screens/2026-04-15-add-move-after-save
+# The newly-added move should be selected (not "Select Exercise")
+- assertVisible: "Bike commute"
+- assertNotVisible: "Select Exercise"

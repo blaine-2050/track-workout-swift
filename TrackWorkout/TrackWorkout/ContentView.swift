@@ -12,6 +12,7 @@ struct ContentView: View {
     @State private var csvContent: String = ""
     @State private var completedSummary: WorkoutSummaryData?
     @State private var showSettings: Bool = false
+    @State private var showAddMoveSheet: Bool = false
     private let exportTimestampFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "en_US_POSIX")
@@ -70,7 +71,7 @@ struct ContentView: View {
                 }
 
                 // Move Selector
-                MoveSelector(moves: Array(moves), selectedMove: $viewModel.selectedMove, onAddMove: { showAddMoveAlert = true })
+                MoveSelector(moves: Array(moves), selectedMove: $viewModel.selectedMove, onAddMove: { showAddMoveSheet = true })
                     .padding(.horizontal)
                     .onChange(of: viewModel.selectedMove) { newValue in
                         // Stamp endedAt on the last entry of the previous move
@@ -196,10 +197,10 @@ struct ContentView: View {
             } message: {
                 Text("Remote database support is on its way!")
             }
-            .alert("Add Move", isPresented: $showAddMoveAlert) {
-                Button("OK", role: .cancel) {}
-            } message: {
-                Text("Custom move creation is coming soon.")
+            .sheet(isPresented: $showAddMoveSheet) {
+                AddMoveSheet(existingMoves: Array(moves)) { newMove in
+                    viewModel.selectedMove = newMove
+                }
             }
             .sheet(item: $completedSummary) { summary in
                 WorkoutCompletedSheet(summary: summary) {

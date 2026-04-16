@@ -182,8 +182,16 @@ class WorkoutViewModel: ObservableObject {
     }
 
     var isIntervalMove: Bool {
-        guard let name = selectedMove?.name else { return false }
-        return ["MTB", "Elipitical", "Treadmill"].contains(name)
+        guard let move = selectedMove else { return false }
+        // Prefer the schema field; fall back to legacy name-based detection
+        // for any move row migrated from before measurementType existed.
+        if let mt = move.measurementType, !mt.isEmpty {
+            return mt == "duration"
+        }
+        if let name = move.name {
+            return ["MTB", "Elipitical", "Treadmill"].contains(name)
+        }
+        return false
     }
 
     var intervalDurationSeconds: Int {

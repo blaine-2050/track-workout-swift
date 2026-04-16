@@ -43,6 +43,7 @@ struct MoveSelector: View {
                         .background(Color(.systemGray6))
                         .cornerRadius(10)
                 }
+                .accessibilityIdentifier("add-move-button")
             }
         }
     }

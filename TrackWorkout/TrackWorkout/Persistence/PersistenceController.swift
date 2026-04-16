@@ -54,28 +54,30 @@ struct PersistenceController {
     }
 
     private func seedMoves(context: NSManagedObjectContext) {
-        let moves = [
-            "Bench Press",
-            "Single Arm Snatch",
-            "Incline DB Press",
-            "Military DB Press",
-            "Squat",
-            "Split Squat",
-            "Deadlift",
-            "Lat Pull Down",
-            "Bent Over Row",
-            "Leg Press",
-            "MTB",
-            "Elipitical",
-            "Treadmill"
+        // (name, measurementType) pairs. measurementType: "strength" | "duration" | "note_only"
+        let moves: [(String, String)] = [
+            ("Bench Press", "strength"),
+            ("Single Arm Snatch", "strength"),
+            ("Incline DB Press", "strength"),
+            ("Military DB Press", "strength"),
+            ("Squat", "strength"),
+            ("Split Squat", "strength"),
+            ("Deadlift", "strength"),
+            ("Lat Pull Down", "strength"),
+            ("Bent Over Row", "strength"),
+            ("Leg Press", "strength"),
+            ("MTB", "duration"),
+            ("Elipitical", "duration"),
+            ("Treadmill", "duration")
         ]
 
-        for (index, name) in moves.enumerated() {
+        for (index, item) in moves.enumerated() {
             let move = Move(context: context)
             move.id = UUID()
-            move.name = name
+            move.name = item.0
             move.sortOrder = Int16(index)
             move.isCustom = false
+            move.measurementType = item.1
         }
 
         do {
