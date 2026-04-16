@@ -17,6 +17,14 @@ struct PersistenceController {
             container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
         }
 
+        // Enable lightweight migration for additive schema changes
+        // (new optional attributes, new entities). Avoids the need for an
+        // explicit mapping model when growing the schema.
+        for description in container.persistentStoreDescriptions {
+            description.shouldMigrateStoreAutomatically = true
+            description.shouldInferMappingModelAutomatically = true
+        }
+
         container.loadPersistentStores { (storeDescription, error) in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
@@ -67,6 +75,7 @@ struct PersistenceController {
             move.id = UUID()
             move.name = name
             move.sortOrder = Int16(index)
+            move.isCustom = false
         }
 
         do {

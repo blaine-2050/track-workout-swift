@@ -254,6 +254,7 @@ struct ContentView: View {
             let newEntry = LogEntry(context: viewContext)
             newEntry.id = UUID()
             newEntry.moveId = selectedMove.id ?? UUID()
+            newEntry.moveName = selectedMove.name
             newEntry.workoutId = currentWorkout.id
             newEntry.timestamp = now
             newEntry.startedAt = viewModel.moveSelectedAt ?? viewModel.lastLoggedAt ?? now
