@@ -1,0 +1,56 @@
+# Maestro flow: log a free-form note_only entry (no weight/reps/duration).
+# Adds a move with the "Other" category (measurementType=note_only),
+# attaches a note, taps Log, verifies the entry renders in history with
+# just the "Note" label + the note text.
+
+appId: com.athenia.TrackWorkout
+---
+- launchApp:
+    clearState: false
+- assertVisible: "Select Exercise"
+
+# ---------- Add a note_only move ("Other" category) ----------
+- tapOn:
+    id: "add-move-button"
+- waitForAnimationToEnd
+- tapOn:
+    id: "add-move-name"
+- inputText: "Feeling check"
+- tapOn: "Other"
+- waitForAnimationToEnd
+- tapOn:
+    id: "add-move-save"
+- waitForAnimationToEnd
+- assertVisible: "Feeling check"
+- assertVisible: "Tap .Add note. below, then Log."
+
+# ---------- Log without a note: should be disabled ----------
+# Log button exists but Log is gated by pendingNote being non-empty.
+# We verify by attaching a note and confirming it enables.
+
+- tapOn:
+    id: "add-note-button"
+- waitForAnimationToEnd
+- tapOn:
+    id: "note-textfield"
+- inputText: "calm, legs feel fresh"
+- tapOn:
+    id: "note-save"
+- waitForAnimationToEnd
+- assertVisible: "Ready to log."
+- assertVisible: "Note pending"
+
+# ---------- Log ----------
+- tapOn: "Log"
+- waitForAnimationToEnd
+- takeScreenshot: runs/screens/2026-04-16-note-only-logged
+- assertVisible: ".*calm, legs feel fresh"
+
+# After log the prompt resets (note cleared)
+- assertVisible: "Tap .Add note. below, then Log."
+
+- tapOn: "Stop"
+- waitForAnimationToEnd
+- assertVisible: "Workout Complete"
+- assertVisible: "1 set"
+- tapOn: "Done"

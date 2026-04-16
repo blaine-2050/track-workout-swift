@@ -172,6 +172,14 @@ class WorkoutViewModel: ObservableObject {
     }
 
     var canLog: Bool {
+        if isNoteOnlyMove {
+            // MVP: require a pending note so the user can't accidentally
+            // log an empty entry. A future "log with empty note" flow can
+            // loosen this.
+            return currentWorkout != nil &&
+            selectedMove != nil &&
+            !pendingNote.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        }
         if isIntervalMove {
             return currentWorkout != nil &&
             selectedMove != nil &&
@@ -198,6 +206,13 @@ class WorkoutViewModel: ObservableObject {
             return ["MTB", "Elipitical", "Treadmill"].contains(name)
         }
         return false
+    }
+
+    /// `true` when the selected move is note_only — the entry needs neither
+    /// weight/reps nor a timed segment, just an optional note + Log.
+    var isNoteOnlyMove: Bool {
+        guard let move = selectedMove, let mt = move.measurementType else { return false }
+        return mt == "note_only"
     }
 
     var intervalDurationSeconds: Int {

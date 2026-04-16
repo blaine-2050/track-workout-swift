@@ -338,7 +338,17 @@ private struct EntryRow: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 2) {
             HStack {
-                if entry.durationSeconds > 0 {
+                if entry.measurementType == "note_only" {
+                    // Note-only entries have no metrics. The note text is
+                    // rendered on its own row below (even when empty, we
+                    // still want the entry visible in history).
+                    Image(systemName: "note.text")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                    Text("Note")
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                } else if entry.durationSeconds > 0 {
                     Text("Duration \(formattedDuration)")
                         .font(.subheadline)
                         .fontWeight(.semibold)

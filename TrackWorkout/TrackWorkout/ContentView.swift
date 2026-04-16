@@ -95,7 +95,26 @@ struct ContentView: View {
                 Divider()
                     .padding(.vertical, 1)
 
-                if viewModel.isIntervalMove && !cardioManualEntry {
+                if viewModel.isNoteOnlyMove {
+                    // note_only entry mode: no keypad, no timers. Just a
+                    // prompt + the (separately-rendered) Note affordance.
+                    // Log is enabled when pendingNote is non-empty.
+                    VStack(alignment: .center, spacing: 6) {
+                        Image(systemName: "note.text")
+                            .font(.title2)
+                            .foregroundColor(.secondary)
+                        Text(viewModel.pendingNote.isEmpty
+                             ? "Tap “Add note” below, then Log."
+                             : "Ready to log.")
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                            .multilineTextAlignment(.center)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 24)
+                    .padding(.horizontal)
+                    .accessibilityIdentifier("note-only-prompt")
+                } else if viewModel.isIntervalMove && !cardioManualEntry {
                     // Cardio (primary path): tap-start / tap-stop
                     CardioEntry(
                         isRunning: viewModel.isCardioSegmentRunning,
@@ -371,6 +390,11 @@ struct ContentView: View {
                 newEntry.durationSeconds = Double(duration)
                 newEntry.weight = 0
                 newEntry.reps = 0
+            } else if viewModel.isNoteOnlyMove {
+                newEntry.measurementType = "note_only"
+                newEntry.weight = 0
+                newEntry.reps = 0
+                newEntry.durationSeconds = 0
             } else {
                 guard let weight = Double(viewModel.weight),
                       let reps = Int16(viewModel.reps) else { return }
