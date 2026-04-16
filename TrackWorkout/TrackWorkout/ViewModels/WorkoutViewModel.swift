@@ -128,6 +128,8 @@ class WorkoutViewModel: ObservableObject {
     @Published var isRepsSticky: Bool = false
     @Published var moveSelectedAt: Date?
     @Published var lastLoggedAt: Date?
+    /// Non-nil while a tap-start/tap-stop cardio segment is in progress.
+    @Published var cardioSegmentStart: Date?
     @Published var pendingSyncCount: Int = 0
     @Published var syncStatusMessage: String = "Sync queue empty"
 
@@ -293,6 +295,7 @@ class WorkoutViewModel: ObservableObject {
         intervalMinutes = ""
         intervalSeconds = ""
         intervalField = .hours
+        cardioSegmentStart = nil
         lastLoggedAt = Date()
         moveSelectedAt = Date()
     }
@@ -307,7 +310,23 @@ class WorkoutViewModel: ObservableObject {
         intervalMinutes = ""
         intervalSeconds = ""
         intervalField = .hours
+        cardioSegmentStart = nil
         moveSelectedAt = Date()
+    }
+
+    var isCardioSegmentRunning: Bool { cardioSegmentStart != nil }
+
+    func startCardioSegment() {
+        cardioSegmentStart = Date()
+    }
+
+    /// Stops the active cardio segment and returns the elapsed seconds.
+    /// Returns 0 if no segment was running.
+    func stopCardioSegmentAndComputeDuration() -> Int {
+        guard let start = cardioSegmentStart else { return 0 }
+        let seconds = max(0, Int(Date().timeIntervalSince(start)))
+        cardioSegmentStart = nil
+        return seconds
     }
 
     func advanceIntervalField() {

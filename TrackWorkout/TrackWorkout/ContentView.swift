@@ -13,6 +13,9 @@ struct ContentView: View {
     @State private var completedSummary: WorkoutSummaryData?
     @State private var showSettings: Bool = false
     @State private var showAddMoveSheet: Bool = false
+    /// True when the user has expanded the "Enter duration manually" disclosure
+    /// inside cardio mode — falls back to the legacy HH:MM:SS keypad path.
+    @State private var cardioManualEntry: Bool = false
     private let exportTimestampFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "en_US_POSIX")
@@ -86,95 +89,116 @@ struct ContentView: View {
                 Divider()
                     .padding(.vertical, 1)
 
-                // Weight/Reps side by side
-                HStack(spacing: 12) {
-                    WeightEntry(
-                        value: $viewModel.weight,
-                        isActive: viewModel.activeField == .weight,
-                        isDisabled: viewModel.isIntervalMove
-                    ) {
-                        viewModel.activeField = .weight
-                    }
-
-                    RepsEntry(
-                        value: $viewModel.reps,
-                        isActive: viewModel.activeField == .reps,
-                        isDisabled: viewModel.isIntervalMove
-                    ) {
-                        viewModel.activeField = .reps
-                    }
-                }
-                .padding(.horizontal)
-
-                // Unit picker + set timer on same line
-                HStack {
-                    Picker("Unit", selection: $weightUnit) {
-                        Text("kg").tag("kg")
-                        Text("lbs").tag("lbs")
-                    }
-                    .pickerStyle(.segmented)
-                    .frame(width: 120)
-
-                    Spacer()
-
-                    if let setStart = viewModel.setTimerStart, viewModel.isWorkoutInProgress, !viewModel.isIntervalMove {
-                        SetTimerDisplay(startDate: setStart)
-                    }
-                }
-                .padding(.horizontal)
-                .padding(.top, 4)
-
-                // Interval entry (only for interval moves)
-                if viewModel.isIntervalMove {
-                    IntervalEntry(
-                        hours: viewModel.intervalHours,
-                        minutes: viewModel.intervalMinutes,
-                        seconds: viewModel.intervalSeconds,
-                        activeField: viewModel.intervalField,
-                        onSelectField: { viewModel.intervalField = $0 }
+                if viewModel.isIntervalMove && !cardioManualEntry {
+                    // Cardio (primary path): tap-start / tap-stop
+                    CardioEntry(
+                        isRunning: viewModel.isCardioSegmentRunning,
+                        startDate: viewModel.cardioSegmentStart,
+                        onStart: startCardioSegment,
+                        onStop: stopCardioSegmentAndLog
                     )
                     .padding(.horizontal)
-                    .padding(.top, 4)
-                }
+                    .padding(.top, 8)
 
-                // Numeric Keypad
-                NumericKeypad(
-                    onDigit: { digit in
-                        viewModel.appendDigit(digit)
-                    },
-                    onDecimal: {
-                        viewModel.appendDecimal()
-                    },
-                    onBackspace: {
-                        viewModel.backspace()
-                    },
-                    onClear: {
-                        viewModel.clear()
-                    },
-                    showDecimal: !viewModel.isIntervalMove && viewModel.activeField == .weight,
-                    showColon: viewModel.isIntervalMove,
-                    onColon: {
-                        viewModel.advanceIntervalField()
+                    if !viewModel.isCardioSegmentRunning {
+                        Button(action: { cardioManualEntry = true }) {
+                            Text("Enter duration manually")
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                        }
+                        .padding(.top, 4)
+                        .accessibilityIdentifier("cardio-manual-toggle")
                     }
-                )
-                .padding(.horizontal)
-                .padding(.vertical, 8)
+                } else {
+                    // Weight/Reps row: shown for strength moves AND for cardio
+                    // when the user has chosen manual entry (so units/timer
+                    // information stays visible).
+                    HStack(spacing: 12) {
+                        WeightEntry(
+                            value: $viewModel.weight,
+                            isActive: viewModel.activeField == .weight,
+                            isDisabled: viewModel.isIntervalMove
+                        ) {
+                            viewModel.activeField = .weight
+                        }
 
-                // Log Button
-                Button(action: {
-                    logEntry()
-                }) {
-                    Text("Log")
-                        .font(.headline)
-                        .fontWeight(.semibold)
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 12)
-                        .background(viewModel.canLog ? Color.blue : Color.gray)
-                        .cornerRadius(10)
+                        RepsEntry(
+                            value: $viewModel.reps,
+                            isActive: viewModel.activeField == .reps,
+                            isDisabled: viewModel.isIntervalMove
+                        ) {
+                            viewModel.activeField = .reps
+                        }
+                    }
+                    .padding(.horizontal)
+
+                    // Unit picker + set timer
+                    HStack {
+                        Picker("Unit", selection: $weightUnit) {
+                            Text("kg").tag("kg")
+                            Text("lbs").tag("lbs")
+                        }
+                        .pickerStyle(.segmented)
+                        .frame(width: 120)
+
+                        Spacer()
+
+                        if viewModel.isIntervalMove && cardioManualEntry {
+                            Button(action: { cardioManualEntry = false }) {
+                                Label("Tap-start mode", systemImage: "timer")
+                                    .font(.caption)
+                            }
+                            .accessibilityIdentifier("cardio-tap-start-toggle")
+                        } else if let setStart = viewModel.setTimerStart, viewModel.isWorkoutInProgress, !viewModel.isIntervalMove {
+                            SetTimerDisplay(startDate: setStart)
+                        }
+                    }
+                    .padding(.horizontal)
+                    .padding(.top, 4)
+
+                    if viewModel.isIntervalMove {
+                        IntervalEntry(
+                            hours: viewModel.intervalHours,
+                            minutes: viewModel.intervalMinutes,
+                            seconds: viewModel.intervalSeconds,
+                            activeField: viewModel.intervalField,
+                            onSelectField: { viewModel.intervalField = $0 }
+                        )
+                        .padding(.horizontal)
+                        .padding(.top, 4)
+                    }
+
+                    NumericKeypad(
+                        onDigit: { digit in viewModel.appendDigit(digit) },
+                        onDecimal: { viewModel.appendDecimal() },
+                        onBackspace: { viewModel.backspace() },
+                        onClear: { viewModel.clear() },
+                        showDecimal: !viewModel.isIntervalMove && viewModel.activeField == .weight,
+                        showColon: viewModel.isIntervalMove,
+                        onColon: { viewModel.advanceIntervalField() }
+                    )
+                    .padding(.horizontal)
+                    .padding(.vertical, 8)
                 }
-                .disabled(!viewModel.canLog)
-                .padding(.horizontal)
+
+                // Log Button — hidden when cardio tap-start mode owns the action
+                let cardioTapStartMode = viewModel.isIntervalMove && !cardioManualEntry
+                if !cardioTapStartMode {
+                    Button(action: {
+                        logEntry()
+                    }) {
+                        Text("Log")
+                            .font(.headline)
+                            .fontWeight(.semibold)
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 12)
+                            .background(viewModel.canLog ? Color.blue : Color.gray)
+                            .cornerRadius(10)
+                    }
+                    .disabled(!viewModel.canLog)
+                    .padding(.horizontal)
+                }
 
                 Divider()
                     .padding(.vertical, 1)
@@ -244,6 +268,47 @@ struct ContentView: View {
     private func exportCSV() {
         csvContent = buildCSV()
         showShareSheet = true
+    }
+
+    private func startCardioSegment() {
+        // Make sure a workout is in progress; selecting the move should
+        // already have started one, but be defensive.
+        if !viewModel.isWorkoutInProgress {
+            startWorkout()
+        }
+        viewModel.startCardioSegment()
+    }
+
+    private func stopCardioSegmentAndLog() {
+        let durationSeconds = viewModel.stopCardioSegmentAndComputeDuration()
+        guard durationSeconds > 0,
+              let selectedMove = viewModel.selectedMove,
+              let currentWorkout = viewModel.currentWorkout else { return }
+
+        let now = Date()
+        let entry = LogEntry(context: viewContext)
+        entry.id = UUID()
+        entry.moveId = selectedMove.id ?? UUID()
+        entry.moveName = selectedMove.name
+        entry.workoutId = currentWorkout.id
+        entry.timestamp = now
+        entry.startedAt = viewModel.cardioSegmentStart ?? viewModel.moveSelectedAt ?? now
+        entry.endedAt = now
+        entry.measurementType = "duration"
+        entry.durationSeconds = Double(durationSeconds)
+        entry.weight = 0
+        entry.reps = 0
+
+        stampEndedAtOnPreviousEntry(now: now)
+
+        do {
+            try viewContext.save()
+            viewModel.enqueueForSync(logEntry: entry, moveName: selectedMove.name ?? "Unknown")
+            Task { await viewModel.syncNow() }
+            viewModel.resetAfterLog()
+        } catch {
+            print("Error saving cardio segment: \(error)")
+        }
     }
 
     private func logEntry() {

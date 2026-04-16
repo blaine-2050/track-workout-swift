@@ -1,0 +1,51 @@
+# Maestro flow: cardio tap-start / tap-stop (Path A from script 04)
+# Selects MTB, taps Start segment, waits, taps Stop segment,
+# verifies an entry persists with a duration.
+
+appId: com.athenia.TrackWorkout
+---
+- launchApp:
+    clearState: false
+- assertVisible: "Select Exercise"
+
+# Select MTB (a duration move)
+- tapOn: "Select Exercise"
+- waitForAnimationToEnd
+- tapOn: "MTB"
+- waitForAnimationToEnd
+- takeScreenshot: runs/screens/2026-04-15-cardio-treadmill-selected
+# Cardio primary path: Start segment button visible, no keypad
+- assertVisible: "Start segment"
+- assertNotVisible: "Log"
+
+# Start the segment
+- tapOn:
+    id: "cardio-start"
+- waitForAnimationToEnd
+- takeScreenshot: runs/screens/2026-04-15-cardio-running
+- assertVisible: "Stop segment"
+
+# Wait for some time to elapse
+- extendedWaitUntil:
+    visible: "__never_visible_sentinel__"
+    timeout: 4000
+    optional: true
+
+# Stop the segment — entry should appear in history with a duration
+- tapOn:
+    id: "cardio-stop"
+- waitForAnimationToEnd
+- takeScreenshot: runs/screens/2026-04-15-cardio-after-stop
+# Back to idle state
+- assertVisible: "Start segment"
+# History should show the just-logged MTB entry. The duration is short
+# (~4 sec elapsed) so look for "sec" or "min" formatting plus the move name.
+- assertVisible: "MTB"
+
+# Stop the workout — summary should show 1 entry
+- tapOn: "Stop"
+- waitForAnimationToEnd
+- takeScreenshot: runs/screens/2026-04-15-cardio-stopped
+- assertVisible: "Workout Complete"
+- assertVisible: "1 set"
+- tapOn: "Done"
