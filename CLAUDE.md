@@ -1,4 +1,4 @@
-# CLAUDE.md — track-workout-ios-swift
+# CLAUDE.md — track-workout-swift
 
 ## Source of truth
 This repo implements Track Workout on iOS. **Behavior, data model, and acceptance criteria come from the core spec repo**, not from this repo's code.

@@ -1,4 +1,4 @@
-# track-workout-ios-swift
+# track-workout-swift
 
 Native iOS implementation of **Track Workout**. Swift + SwiftUI + Core Data.
 
@@ -15,7 +15,7 @@ Native iOS implementation of **Track Workout**. Swift + SwiftUI + Core Data.
 ## Project Layout
 
 ```
-track-workout-ios-swift/
+track-workout-swift/
 ├── TrackWorkout/
 │   ├── TrackWorkout.xcodeproj
 │   └── TrackWorkout/
